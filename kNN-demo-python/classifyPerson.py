@@ -1,19 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Time    : 2019/10/8 13:40
-# @Author  : GXl
-# @File    : 2.2.5.py
-# @Software: win10 Tensorflow1.13.1 python3.5.6
 
-
+from matplotlib.font_manager import FontProperties
 import numpy as np
 import operator
+import matplotlib.lines as mlines
+import matplotlib.pyplot as plt
 
 """
 Parameters:
     inX - 用于分类的数据(测试集)
     dataSet - 用于训练的数据(训练集)
-    labes - 分类标签
+    labels - 分类标签
     k - kNN算法参数,选择距离最小的k个点
 Returns:
     sortedClassCount[0][0] - 分类结果
@@ -40,10 +38,7 @@ def classify0(inX, dataSet, labels, k):
         #dict.get(key,default=None),字典的get()方法,返回指定键的值,如果值不在字典中返回默认值。
         #计算类别次数
         classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    #python3中用items()替换python2中的iteritems()
-    #key=operator.itemgetter(1)根据字典的值进行排序
-    #key=operator.itemgetter(0)根据字典的键进行排序
-    #reverse降序排序字典
+    #reverse降序排序字典，key=operator.itemgetter(1)根据字典的值进行排序
     sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)
     #返回次数最多的类别,即所要分类的类别
     return sortedClassCount[0][0]
@@ -112,11 +107,78 @@ def autoNorm(dataSet):
     #返回归一化数据结果,数据范围,最小值
     return normDataSet, ranges, minVals
 
+"""
+Parameters:
+    datingDataMat - 特征矩阵
+    datingLabels - 分类Label
+Returns:
+    无
+"""
+# 函数说明:可视化数据
+def showdatas(datingDataMat, datingLabels):
+    #设置汉字格式
+    font = FontProperties(fname='/System/Library/Fonts/PingFang.ttc', size=14)
+    #将fig画布分隔成1行1列,不共享x轴和y轴,fig画布的大小为(13,8)
+    #当nrow=2,nclos=2时,代表fig画布被分为四个区域,axs[0][0]表示第一行第一个区域
+    fig, axs = plt.subplots(nrows=2, ncols=2,sharex=False, sharey=False, figsize=(13,8))
+
+    numberOfLabels = len(datingLabels)
+    LabelsColors = []
+    for i in datingLabels:
+        if i == 1:
+            LabelsColors.append('black')
+        if i == 2:
+            LabelsColors.append('orange')
+        if i == 3:
+            LabelsColors.append('red')
+    #画出散点图,以datingDataMat矩阵的第一(飞行常客例程)、第二列(玩游戏)数据画散点数据,散点大小为15,透明度为0.5
+    axs[0][0].scatter(x=datingDataMat[:,0], y=datingDataMat[:,1], color=LabelsColors,s=15, alpha=.5)
+    #设置标题,x轴label,y轴label
+    axs0_title_text = axs[0][0].set_title(u'每年获得的飞行常客里程数与玩视频游戏所消耗时间占比',fontproperties=font)
+    axs0_xlabel_text = axs[0][0].set_xlabel(u'每年获得的飞行常客里程数',fontproperties=font)
+    axs0_ylabel_text = axs[0][0].set_ylabel(u'玩视频游戏所消耗时间占',fontproperties=font)
+    plt.setp(axs0_title_text, size=9, weight='bold', color='red')
+    plt.setp(axs0_xlabel_text, size=7, weight='bold', color='black')
+    plt.setp(axs0_ylabel_text, size=7, weight='bold', color='black')
+
+    #画出散点图,以datingDataMat矩阵的第一(飞行常客例程)、第三列(冰激凌)数据画散点数据,散点大小为15,透明度为0.5
+    axs[0][1].scatter(x=datingDataMat[:,0], y=datingDataMat[:,2], color=LabelsColors,s=15, alpha=.5)
+    #设置标题,x轴label,y轴label
+    axs1_title_text = axs[0][1].set_title(u'每年获得的飞行常客里程数与每周消费的冰激淋公升数',fontproperties=font)
+    axs1_xlabel_text = axs[0][1].set_xlabel(u'每年获得的飞行常客里程数',fontproperties=font)
+    axs1_ylabel_text = axs[0][1].set_ylabel(u'每周消费的冰激淋公升数',fontproperties=font)
+    plt.setp(axs1_title_text, size=9, weight='bold', color='red')
+    plt.setp(axs1_xlabel_text, size=7, weight='bold', color='black')
+    plt.setp(axs1_ylabel_text, size=7, weight='bold', color='black')
+
+    #画出散点图,以datingDataMat矩阵的第二(玩游戏)、第三列(冰激凌)数据画散点数据,散点大小为15,透明度为0.5
+    axs[1][0].scatter(x=datingDataMat[:,1], y=datingDataMat[:,2], color=LabelsColors,s=15, alpha=.5)
+    #设置标题,x轴label,y轴label
+    axs2_title_text = axs[1][0].set_title(u'玩视频游戏所消耗时间占比与每周消费的冰激淋公升数',fontproperties=font)
+    axs2_xlabel_text = axs[1][0].set_xlabel(u'玩视频游戏所消耗时间占比',fontproperties=font)
+    axs2_ylabel_text = axs[1][0].set_ylabel(u'每周消费的冰激淋公升数',fontproperties=font)
+    plt.setp(axs2_title_text, size=9, weight='bold', color='red')
+    plt.setp(axs2_xlabel_text, size=7, weight='bold', color='black')
+    plt.setp(axs2_ylabel_text, size=7, weight='bold', color='black')
+    #设置图例
+    didntLike = mlines.Line2D([], [], color='black', marker='.',
+                      markersize=6, label='didntLike')
+    smallDoses = mlines.Line2D([], [], color='orange', marker='.',
+                      markersize=6, label='smallDoses')
+    largeDoses = mlines.Line2D([], [], color='red', marker='.',
+                      markersize=6, label='largeDoses')
+    #添加图例
+    axs[0][0].legend(handles=[didntLike,smallDoses,largeDoses])
+    axs[0][1].legend(handles=[didntLike,smallDoses,largeDoses])
+    axs[1][0].legend(handles=[didntLike,smallDoses,largeDoses])
+    #显示图片
+    plt.show()
+
 # 函数说明:通过输入一个人的三维特征,进行分类输出
 def classifyPerson():
     #输出结果
     resultList = ['讨厌','有些喜欢','非常喜欢']
-    #三维特征用户输入
+    #三维特征用户输入1
     precentTats = float(input("玩视频游戏所耗时间百分比:"))
     ffMiles = float(input("每年获得的飞行常客里程数:"))
     iceCream = float(input("每周消费的冰激淋公升数:"))
@@ -124,6 +186,8 @@ def classifyPerson():
     filename = "datingTestSet.txt"
     #打开并处理数据
     datingDataMat, datingLabels = file2matrix(filename)
+    #可视化数据
+    showdatas(datingDataMat, datingLabels)
     #训练集归一化
     normMat, ranges, minVals = autoNorm(datingDataMat)
     #生成NumPy数组,测试集
