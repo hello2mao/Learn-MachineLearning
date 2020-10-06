@@ -1,9 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Time    : 2019/10/8 13:54
-# @Author  : GXl
-# @File    : 3.3.py
-# @Software: win10 Tensorflow1.13.1 python3.5.6
 
 
 from matplotlib.font_manager import FontProperties
@@ -41,7 +37,7 @@ Returns:
 """
 # 函数说明:创建测试数据集
 def createDataSet():
-    dataSet = [[0, 0, 0, 0, 'no'],#数据集
+    dataSet = [[0, 0, 0, 0, 'no'],#数据集，类别是是否给贷款
             [0, 0, 0, 1, 'no'],
             [0, 1, 0, 1, 'yes'],
             [0, 1, 1, 0, 'yes'],
@@ -272,6 +268,7 @@ def createPlot(inTree):
 if __name__ == '__main__':
     dataSet, labels = createDataSet()
     featLabels = []
+    # 贷款申请的决策树
     myTree = createTree(dataSet, labels, featLabels)
     print(myTree)
     createPlot(myTree)
