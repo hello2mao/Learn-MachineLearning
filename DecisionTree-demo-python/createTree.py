@@ -15,7 +15,7 @@ Returns:
 """
 # 函数说明:计算给定数据集的经验熵(香农熵)
 def calcShannonEnt(dataSet):
-    numEntires = len(dataSet)                       #返回数据集的行数
+    numEntires = len(dataSet)                      #返回数据集的行数
     labelCounts = {}                               #保存每个标签(Label)出现次数的字典
     for featVec in dataSet:                        #对每组特征向量进行统计
         currentLabel = featVec[-1]                 #提取标签(Label)信息
