@@ -199,6 +199,5 @@ def classifyPerson():
     #打印结果
     print("你可能%s这个人" % (resultList[classifierResult-1]))
 
-
 if __name__ == '__main__':
     classifyPerson()
