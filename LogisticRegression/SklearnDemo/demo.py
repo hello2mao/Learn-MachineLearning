@@ -2,12 +2,14 @@
 
 import numpy as np
 from sklearn import linear_model, datasets
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
  
 # 1.加载数据
 iris = datasets.load_iris()
 X = iris.data[:, :2]  # 使用前两个特征
+print("X", X)
 Y = iris.target
+print("Y", Y)
 #np.unique(Y)   # out: array([0, 1, 2])
  
 # 2.拆分测试集、训练集。
