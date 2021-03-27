@@ -30,5 +30,4 @@ print('连结:', torch.cat((A, C), dim=1))
 # 范数
 u = torch.tensor([3.0, -4.0])
 print('L1范数:', torch.abs(u).sum())  # L1范数
-print('L2范数:', torch.norm(u))  # L2范数
-print(torch.norm(torch.ones((4, 9))))  # 弗罗贝尼乌斯范数
+print('L2范数:', torch.norm(u))  # L2范数、弗罗贝尼乌斯范数
