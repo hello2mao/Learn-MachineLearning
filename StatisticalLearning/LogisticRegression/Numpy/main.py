@@ -22,12 +22,14 @@ def data_iter(batch_size, X, y):
 
 
 # 计算损失
-def loss(X, y, w, b):
-    return (y * np.log(sigmoid(np.dot(X, w) + b)) + (1 - y) * np.log(1 - sigmoid(np.dot(X, w) + b))).sum()
+def compute_loss(X, y, w, b):
+    y_hat = sigmoid(np.dot(X, w) + b)
+    print('y_hat', 1-y_hat)
+    return (y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat)).sum()
 
 
 # 计算梯度
-def gradient(X, y, w, b):
+def compute_gradient(X, y, w, b):
     return np.dot(X.T, sigmoid(np.dot(X, w) + b) - y)
 
 
@@ -43,10 +45,16 @@ def fit(X, y):
     # 开始训练
     batch_size = 10
     learning_rate = 0.1
-    iter_max = 1000
+    iter_max = 1
     for n_iter in range(1, iter_max+1):
-        for batch_data in data_iter(batch_size, X, y):
-            print(batch_data)
+        for (batch_X, batch_y) in data_iter(batch_size, X, y):
+            print(f'current batch_X: {batch_X}')
+            print(f'current batch_y: {batch_y}')
+
+            # compute loss
+            loss = compute_loss(X, y, w, b)
+            print(loss)
+            return
 
 
 if __name__ == '__main__':
