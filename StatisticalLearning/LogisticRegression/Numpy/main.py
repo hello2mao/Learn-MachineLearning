@@ -10,8 +10,8 @@ def normalization(data):
 
 
 # 加载数据
-def load_data():
-    df = pd.read_csv('data.csv')
+def load_data(file_name):
+    df = pd.read_csv(file_name)
     # features
     features = df.iloc[:, :-1].to_numpy()
     features = normalization(features)
@@ -59,9 +59,9 @@ def fit(X, y):
     w = np.random.rand(X.shape[1])
 
     # 开始训练
-    batch_size = 50
-    learning_rate = 0.2
-    iter_max = 100
+    batch_size = 10
+    learning_rate = 0.1
+    iter_max = 10000
     for n_iter in range(1, iter_max+1):
         # compute loss
         loss = compute_loss(X, y, w)
@@ -88,7 +88,8 @@ def predict(X, y, w):
 
 
 if __name__ == '__main__':
-    X, y = load_data()
+    X, y = load_data('data.csv')
     w = fit(X, y)
-    predict_result = predict(X, y, w)
+    X_test, y_test = load_data('test_data.csv')
+    predict_result = predict(X_test, y_test, w)
     print(f'predict_result: {predict_result}%')
