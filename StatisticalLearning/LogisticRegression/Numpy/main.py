@@ -75,6 +75,7 @@ def fit(X, y):
     return w
 
 
+# 预测
 def predict(X, y, w):
     count = 0
     for index, x in enumerate(X):
