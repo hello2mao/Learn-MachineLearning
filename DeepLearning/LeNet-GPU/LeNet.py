@@ -1,3 +1,5 @@
+# https://blog.csdn.net/Mr_FengT/article/details/90645061
+
 import torch
 import torch.nn as nn
 import numpy as np
@@ -10,11 +12,11 @@ BATCH_SIZE = 50
 LR = 0.01
 DOWNLOAD_MNIST = True
 
-train_data = torchvision.datasets.MNIST(root='./mnist/', train=True, transform=torchvision.transforms.ToTensor(),
+train_data = torchvision.datasets.MNIST(root='./data/', train=True, transform=torchvision.transforms.ToTensor(),
                                         download=DOWNLOAD_MNIST, )
 train_loader = Data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
 
-test_data = torchvision.datasets.MNIST(root='./mnist/', train=False)
+test_data = torchvision.datasets.MNIST(root='./data/', train=False)
 
 # test_x = torch.unsqueeze(test_data.test_data, dim=1).type(torch.FloatTensor)[:2000].cuda()/255.
 test_x = torch.unsqueeze(test_data.test_data, dim=1).type(torch.FloatTensor)[:2000] / 255.
@@ -27,6 +29,7 @@ test_y = test_data.test_labels[:2000]
 # print(test_data.test_data.size())#测试集的大小
 # print(test_data.test_labels[0])#测试集的第一个标签
 # plt.imshow(train_data.train_data[2],cmap='gray')#训练集的第三张图片
+
 
 # 搭建网络
 class _LeNet(nn.Module):
