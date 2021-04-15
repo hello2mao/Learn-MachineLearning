@@ -16,10 +16,10 @@ train_loader = Data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffl
 
 test_data = torchvision.datasets.MNIST(root='./mnist/', train=False)
 
-test_x = torch.unsqueeze(test_data.test_data, dim=1).type(torch.FloatTensor)[:2000].cuda()/255.
-# test_x = torch.unsqueeze(test_data.test_data, dim=1).type(torch.FloatTensor)[:2000] / 255.
-test_y = test_data.test_labels[:2000].cuda()
-# test_y = test_data.test_labels[:2000]
+# test_x = torch.unsqueeze(test_data.test_data, dim=1).type(torch.FloatTensor)[:2000].cuda()/255.
+test_x = torch.unsqueeze(test_data.test_data, dim=1).type(torch.FloatTensor)[:2000] / 255.
+# test_y = test_data.test_labels[:2000].cuda()
+test_y = test_data.test_labels[:2000]
 
 
 # 查看下载的mnist数据集
