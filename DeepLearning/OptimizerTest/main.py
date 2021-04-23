@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import csv
+from sklearn.model_selection import train_test_split
 
 
 class MyDataset(Dataset):
@@ -25,7 +26,8 @@ class MyDataset(Dataset):
             data = list(csv.reader(fp))
             data = np.array(data[1:])[:, 1:].astype(float)
 
-        feats = list(range(93))
+        # feats = list(range(93))
+        feats = list(range(40)) + [57, 75]
 
         if mode == 'test':
             # Testing data
@@ -39,10 +41,11 @@ class MyDataset(Dataset):
             data = data[:, feats]
 
             # Splitting training data into train & dev sets
+            indices_tr, indices_dev = train_test_split([i for i in range(data.shape[0])], test_size = 0.3, random_state = 0)
             if mode == 'train':
-                indices = [i for i in range(len(data)) if i % 10 != 0]
+                indices = indices_tr
             elif mode == 'dev':
-                indices = [i for i in range(len(data)) if i % 10 == 0]
+                indices = indices_dev
 
             # Convert data into PyTorch tensors
             self.data = torch.FloatTensor(data[indices])
@@ -167,7 +170,7 @@ for i, loss_history in enumerate(loss_histories):
 plt.legend(loc='best')
 plt.xlabel('Steps')
 plt.ylabel('Loss')
-plt.ylim((0, 6.0))
+plt.ylim((0, 15.0))
 plt.xlim((0, len(tr_set.dataset)))
 print('epoch: {}/{},steps:{}/{}'.format(epoch+1,
       n_epochs, step*batch_size, len(tr_set.dataset)))

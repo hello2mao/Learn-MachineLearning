@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 
 # For data preprocess
+from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 import pprint as pp
@@ -43,10 +44,11 @@ class MyDataset(Dataset):
             data = data[:, feats]
 
             # Splitting training data into train & dev sets
+            indices_tr, indices_dev = train_test_split([i for i in range(data.shape[0])], test_size = 0.3, random_state = 0)
             if mode == 'train':
-                indices = [i for i in range(len(data)) if i % 10 != 0]
+                indices = indices_tr
             elif mode == 'dev':
-                indices = [i for i in range(len(data)) if i % 10 == 0]
+                indices = indices_dev
 
             # Convert data into PyTorch tensors
             self.data = torch.FloatTensor(data[indices])
