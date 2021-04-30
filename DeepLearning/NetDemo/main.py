@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 # PyTorch
 import torch
 import torch.nn as nn
@@ -173,6 +175,7 @@ loss_func = nn.MSELoss(reduction='mean')
 for epoch in range(config['n_epochs']):
     net.train()                                 # set model to training mode
     for x, y in tr_set:                         # iterate through the dataloader
+        print('x shape:', x.shape)
         optimizer.zero_grad()                   # set gradient to zero
         # move data to device (cpu/cuda)
         x, y = x.to(device), y.to(device)

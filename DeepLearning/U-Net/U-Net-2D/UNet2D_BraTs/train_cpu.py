@@ -120,6 +120,8 @@ def train(args, train_loader, model, criterion, optimizer, epoch, scheduler=None
         # input = input.cuda()
         # target = target.cuda()
 
+        # print(f'input shape: {input.shape}') # torch.Size([18, 4, 160, 160])
+
         # compute output
         if args.deepsupervision:
             outputs = model(input)
@@ -220,8 +222,8 @@ def main():
     cudnn.benchmark = True
 
     # Data loading code
-    img_paths = glob(r'/Users/maohongbin/github.com/hello2mao/Learn-MachineLearning/DeepLearning/U-Net/U-Net-2D/BraTS2Dpreprocessing/trainImage/*')
-    mask_paths = glob(r'/Users/maohongbin/github.com/hello2mao/Learn-MachineLearning/DeepLearning/U-Net/U-Net-2D/BraTS2Dpreprocessing/trainMask/*')
+    img_paths = glob(r'/Users/maohongbin/github.com/hello2mao/Learn-MachineLearning/Data/MICCAI_BraTS_2018_Data_Training/trainImage/*')
+    mask_paths = glob(r'/Users/maohongbin/github.com/hello2mao/Learn-MachineLearning/Data/MICCAI_BraTS_2018_Data_Training/trainMask/*')
 
     train_img_paths, val_img_paths, train_mask_paths, val_mask_paths = \
         train_test_split(img_paths, mask_paths, test_size=0.2, random_state=41)

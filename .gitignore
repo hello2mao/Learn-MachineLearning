@@ -4,3 +4,5 @@ __pycache__
 .ipynb_checkpoints
 MNIST/
 Data
+.DS_Store
+.vscode
