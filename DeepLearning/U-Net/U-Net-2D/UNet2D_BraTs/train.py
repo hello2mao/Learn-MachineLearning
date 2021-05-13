@@ -230,7 +230,7 @@ def main():
     # create model
     print("=> creating model %s" %args.arch)
     model = unet.__dict__[args.arch](args)
-
+    
     model = model.cuda()
 
     print(count_params(model))

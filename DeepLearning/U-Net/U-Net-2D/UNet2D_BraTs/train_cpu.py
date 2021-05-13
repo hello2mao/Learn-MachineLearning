@@ -54,7 +54,7 @@ def parse_args():
                             ' | '.join(arch_names) +
                             ' (default: NestedUNet)')
     parser.add_argument('--deepsupervision', default=False, type=str2bool)
-    parser.add_argument('--dataset', default="jiu0Monkey",
+    parser.add_argument('--dataset', default="hello2mao",
                         help='dataset name')
     parser.add_argument('--input-channels', default=4, type=int,
                         help='input channels')
@@ -234,7 +234,7 @@ def main():
     # create model
     print("=> creating model %s" %args.arch)
     model = unet.__dict__[args.arch](args)
-
+    print(model)
     # model = model.cuda()
 
     print(count_params(model))

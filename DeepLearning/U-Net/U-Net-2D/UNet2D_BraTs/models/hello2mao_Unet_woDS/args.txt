@@ -1,7 +1,7 @@
-name: Jiu0Monkey_Unet_woDS
+name: hello2mao_Unet_woDS
 arch: Unet
 deepsupervision: False
-dataset: Jiu0Monkey
+dataset: hello2mao
 input_channels: 4
 image_ext: png
 mask_ext: png

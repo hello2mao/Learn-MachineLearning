@@ -27,6 +27,7 @@ class Dataset(torch.utils.data.Dataset):
         #读numpy数据(npy)的代码
         npimage = np.load(img_path)
         npmask = np.load(mask_path)
+        print(npmask.shape)
         npimage = npimage.transpose((2, 0, 1))
 
         WT_Label = npmask.copy()
