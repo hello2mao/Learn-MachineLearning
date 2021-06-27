@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import numpy as np
 import pandas as pd
 import random
@@ -12,14 +15,18 @@ def normalization(data):
 # 加载数据
 def load_data(file_name):
     df = pd.read_csv(file_name)
+    print('read csv data shape: ', df.shape)
     # features
     features = df.iloc[:, :-1].to_numpy()
     features = normalization(features)
     ones = np.ones(shape=features.shape[0])
+    # np.c_按行链接矩阵
     features = np.c_[features, ones]
+    print('features shape: ', features.shape)
     # labels
     labels = np.squeeze(df.iloc[:, -1:].to_numpy().reshape(1, -1))
     labels = normalization(labels)
+    print('labels shape: ', labels.shape)
     return features, labels
 
 
@@ -55,8 +62,11 @@ def compute_gradient(X, y, w):
 
 # 训练
 def fit(X, y):
+    print('fit start')
     # 初始化模型参数
+    np.random.seed(1)
     w = np.random.rand(X.shape[1])
+    print('init w: ', w)
 
     # 开始训练
     batch_size = 10
@@ -90,6 +100,7 @@ def predict(X, y, w):
 if __name__ == '__main__':
     X, y = load_data('data.csv')
     w = fit(X, y)
+    print('w', w)
     X_test, y_test = load_data('test_data.csv')
     predict_result = predict(X_test, y_test, w)
     print(f'predict_result: {predict_result}%')
